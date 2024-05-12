@@ -1,0 +1,6 @@
+.pio
+.vscode
+config/secret.ini
+*.log
+*.swp
+

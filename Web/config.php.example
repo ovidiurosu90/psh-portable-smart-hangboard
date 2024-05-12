@@ -1,0 +1,8 @@
+<?php
+
+define('PSH_TOKEN', 'TO_FILL');
+
+define('GOOGLE_APPLICATION_CREDENTIALS', 'TO_FILL');
+
+define('PSH_SPREADSHEET_ID', 'TO_FILL');
+

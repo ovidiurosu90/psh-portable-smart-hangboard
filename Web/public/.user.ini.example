@@ -1,0 +1,8 @@
+error_reporting=0
+display_errors=Off
+display_startup_errors=Off
+html_errors=0
+log_errors=Off
+error_log=FILL_IN
+auto_prepend_file=.authorization.php
+

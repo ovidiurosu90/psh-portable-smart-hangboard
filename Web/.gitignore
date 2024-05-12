@@ -1,0 +1,9 @@
+config.php
+credentials.json
+composer.lock
+composer.phar
+logs/*
+vendor/*
+*.swp
+public/.user.ini
+

@@ -1,0 +1,15 @@
+{
+    "require": {
+        "google/apiclient": "^2.16.0",
+        "monolog/monolog": "^3.6.0"
+    },
+    "scripts": {
+        "pre-autoload-dump": "Google\\Task\\Composer::cleanup"
+    },
+    "extra": {
+        "google/apiclient-services": [
+            "Sheets"
+        ]
+    }
+}
+

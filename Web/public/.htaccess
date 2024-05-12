@@ -1,0 +1,13 @@
+
+<FilesMatch \.php>
+    SetHandler "proxy:unix:/var/run/php/php8.3-fpm.sock|fcgi://localhost/"
+</FilesMatch>
+
+<Files ".user.ini">
+    Require all denied
+</Files>
+
+<Files "../">
+    Require all denied
+</Files>
+

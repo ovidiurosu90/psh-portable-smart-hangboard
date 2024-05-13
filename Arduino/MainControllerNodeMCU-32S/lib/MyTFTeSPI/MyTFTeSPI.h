@@ -63,6 +63,8 @@ public:
     void plotAnalogMeter();
     void plotCycleStats();
     void plotScore();
+    void plotAction();
+    void plotCountdown();
     void plotFooter();
     void plotFooterLine1(const char *line);
     void plotFooterLine2(const char *line);
@@ -72,6 +74,7 @@ public:
     void setCountdown(uint8_t countdown);
     void setAction(const char *action);
     void setCycleStats(const char *cycleStats);
+    void setScore(uint32_t score);
 
     void setValueColorNeutral();
     void setValueColorWithinBounds();
@@ -93,7 +96,7 @@ private:
 
     char _cycleStatsBuffer[6] = "cycle";
 
-    uint32_t _score = 0;
+    uint32_t _scoreValue = -1;
     char _scoreBuffer[6] = "score";
 
     uint8_t _countdownValue = -1;

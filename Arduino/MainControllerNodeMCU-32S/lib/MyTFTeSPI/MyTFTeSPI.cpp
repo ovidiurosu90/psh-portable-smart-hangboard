@@ -222,15 +222,38 @@ void MyTFTeSPI::plotCycleStats()
     _tft->fillRect(M_SIZE*(6), M_SIZE*(6), M_SIZE*47, M_SIZE*18, TFT_WHITE);
     _tft->setTextColor(TFT_BLACK, TFT_WHITE);
     _tft->drawString(_cycleStatsBuffer, M_SIZE*(6), M_SIZE*(6), 1);
-
 }
 
 void MyTFTeSPI::plotScore()
 {
+    if (_scoreValue != -1 && _scoreValue != UINT32_MAX) {
+        sprintf(_scoreBuffer, "%d", _scoreValue);
+    } else {
+        sprintf(_scoreBuffer, "%s", "score");
+    }
+
     _tft->fillRect(M_SIZE*(190), M_SIZE*(6), M_SIZE*47, M_SIZE*18, TFT_WHITE);
     _tft->setTextColor(TFT_BLACK, TFT_WHITE);
     _tft->drawRightString(_scoreBuffer, M_SIZE*(236), M_SIZE*(6), 1);
+}
 
+void MyTFTeSPI::plotAction()
+{
+    _tft->fillRect(M_SIZE*(6), M_SIZE*(100), M_SIZE*44, M_SIZE*26, TFT_WHITE);
+    _tft->setTextColor(TFT_BLACK, TFT_WHITE);
+    _tft->drawCentreString(_actionBuffer, M_SIZE*(28), M_SIZE*(100), 2);
+}
+
+void MyTFTeSPI::plotCountdown()
+{
+    _tft->fillRect(M_SIZE*(200), M_SIZE*(100), M_SIZE*36, M_SIZE*26, TFT_WHITE);
+    _tft->setTextColor(TFT_BLACK, TFT_WHITE);
+    if (_countdownValue != -1 && _countdownValue != UINT8_MAX) {
+        sprintf(_countdownBuffer, "%d", _countdownValue);
+    } else {
+        sprintf(_countdownBuffer, " %c ", 'x');
+    }
+    _tft->drawCentreString(_countdownBuffer, M_SIZE*(216), M_SIZE*(100), 2);
 }
 
 void MyTFTeSPI::plotFooter()
@@ -260,15 +283,13 @@ void MyTFTeSPI::plotFooterLine3(const char *line)
     _tft->drawString(line, M_SIZE*(1), M_SIZE*(172), 1);
 }
 
-
 void MyTFTeSPI::plotTotal(float total)
 {
     if (_updateTime <= millis()) {
         _updateTime = millis() + 35; // Update meter every 35 milliseconds
 
-        plotNeedle((int)(total / 1000), 0);
+        plotNeedle((int)(total / 1000), 0); // g to kg
   }
-
 }
 
 void MyTFTeSPI::printStreamTitle(const char *streamTitle)
@@ -317,6 +338,11 @@ void MyTFTeSPI::setCycleStats(const char *cycleStats)
     strcpy(_cycleStatsBuffer, cycleStats);
 }
 
+void MyTFTeSPI::setScore(uint32_t score)
+{
+    _scoreValue = score;
+}
+
 void MyTFTeSPI::setValueColorNeutral()
 {
     _valueColor = TFT_BLACK;
@@ -334,25 +360,14 @@ void MyTFTeSPI::setValueColorOverBound()
     _valueColor = MYCOLOR_BLUE;
 }
 
-
 void MyTFTeSPI::loop()
 {
-    // Draw lower left value
-    _tft->fillRect(M_SIZE*(6), M_SIZE*(100), M_SIZE*44, M_SIZE*26, TFT_WHITE);
-    _tft->setTextColor(TFT_BLACK, TFT_WHITE);
-    _tft->drawCentreString(_actionBuffer, M_SIZE*(28), M_SIZE*(100), 2);
-
-    // Draw lower right value
-    _tft->fillRect(M_SIZE*(200), M_SIZE*(100), M_SIZE*36, M_SIZE*26, TFT_WHITE);
-    _tft->setTextColor(TFT_BLACK, TFT_WHITE);
-    if (_countdownValue != -1 && _countdownValue != 255) {
-        sprintf(_countdownBuffer, "%d", _countdownValue);
-    } else {
-        sprintf(_countdownBuffer, " %c ", 'x');
-    }
-    _tft->drawCentreString(_countdownBuffer, M_SIZE*(216), M_SIZE*(100), 2);
-
+    // Draw upper left & right values
     plotCycleStats();
     plotScore();
+
+    // Draw lower left & right values
+    plotAction();
+    plotCountdown();
 }
 

@@ -41,6 +41,11 @@ private:
     uint32_t _currentCycleMillis = -1;
     uint32_t _currentCycleTotalMillis = -1; // will take either activity or rest total
 
+    uint32_t _currentScore = -1;
+    uint32_t _scoreValue = -1;
+    uint32_t _scoreLastPrintMillis = -1;
+    const uint32_t _scoreLastPrintFrequencyMillis = 1000;
+
     uint32_t _outOfBoundsLastPrintMillis = -1;
     const uint32_t _outOfBoundsPrintFrequencyMillis = 1000;
 

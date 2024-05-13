@@ -82,8 +82,10 @@ void MyTrainer::startTraining()
     _trainingStartMillis = millis();
     _trainingEndMillis = -1;
     _currentCycle = 0;
+    _scoreValue = 0;
     _currentCycleStartMillis = _trainingStartMillis;
     _myTFTeSPI->setCycleStats(getCycleStats());
+    _myTFTeSPI->setScore(_scoreValue);
     Serial.print("==== Training START | millis: "); Serial.println(_trainingStartMillis);
 }
 
@@ -107,6 +109,7 @@ void MyTrainer::endTraining()
     _myESP32AudioI2S->playEndSound();
     _myTFTeSPI->setAction("end");
     _myTFTeSPI->setCycleStats(getCycleStats());
+    _myTFTeSPI->setScore(_scoreValue);
     _myTFTeSPI->setValueColorNeutral();
 }
 
@@ -118,7 +121,7 @@ bool MyTrainer::currentCycleIsActivity()
 char* MyTrainer::getCycleStats()
 {
     char* cycleStatsBuffer = new char[6];
-    if (_currentCycle == -1 || _currentCycle == 255) {
+    if (_currentCycle == -1 || _currentCycle == UINT8_MAX) {
         strcpy(cycleStatsBuffer, "cycle");
         return cycleStatsBuffer;
     }
@@ -200,11 +203,21 @@ void MyTrainer::loop()
                 _myESP32AudioI2S->playMeasurementWithinBounds();
                 _myTFTeSPI->setValueColorWithinBounds();
             }
+
+            if (millis() - _scoreLastPrintMillis > _scoreLastPrintFrequencyMillis) {
+                _currentScore = (int)(_scaleTotalMeasurement / 1000); // g to kg
+                _scoreValue += _currentScore;
+
+                Serial.print("Score +"); Serial.print(_currentScore);
+                Serial.print(", total = "); Serial.println(_scoreValue);
+                _myTFTeSPI->setScore(_scoreValue);
+                _scoreLastPrintMillis = millis();
+            }
         }
 
         // Countdown in seconds
         _myTFTeSPI->setCountdown(ceil(
-            (_currentCycleTotalMillis - _currentCycleMillis) / 1000));
+            (_currentCycleTotalMillis - _currentCycleMillis) / 1000)); // ms to s
 
         return;
     }

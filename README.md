@@ -12,7 +12,16 @@ Provide a portable smart hangboard to use for finger strength training
 - the hangboard measures the pressure applied to the hanghold by using a couple of load cells
 - the training plans are set in Google Sheets
 
+## Images
+
+![CAD vs Real World](./Images/PSH_Portable_Smart_Hangboard_May_2024_v3_2024-05-13_CAD_vs_real_world.PNG "CAD vs Real World")
+
+
 ## Wiring
+
+![NodeMCU 32S Pinout](./Images/NodeMCU-32S_pinout.png "NodeMCU 32S Pinout")
+
+![MainControllerNodeMCU-32S Schematic Editor](./Images/MainControllerNodeMCU-32S_Schematic_Editor.PNG "MainControllerNodeMCU-32S Schematic Editor")
 
 | [NodeMcu ESP-32S Lua ESP-WROOM-32](https://opencircuit.shop/product/nodemcu-esp-32s-lua-esp-wroom-32-wifi) | [SparkFun HX711 Load Cell Amplifier](https://eu.robotshop.com/products/hx711-load-cell-amplifier?variant=42600661942440) => NOTE we need to solder male pins |
 | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |

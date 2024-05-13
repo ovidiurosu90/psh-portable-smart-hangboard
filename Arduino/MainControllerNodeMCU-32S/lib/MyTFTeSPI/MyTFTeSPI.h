@@ -71,6 +71,7 @@ public:
     void printStreamTitle(const char *streamTitle);
     void setCountdown(uint8_t countdown);
     void setAction(const char *action);
+    void setCycleStats(const char *cycleStats);
 
     void setValueColorNeutral();
     void setValueColorWithinBounds();

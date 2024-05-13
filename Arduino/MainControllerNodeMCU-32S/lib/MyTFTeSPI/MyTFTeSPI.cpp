@@ -219,7 +219,7 @@ void MyTFTeSPI::plotAnalogMeter()
 
 void MyTFTeSPI::plotCycleStats()
 {
-    _tft->fillRect(M_SIZE*(6), M_SIZE*(6), M_SIZE*48, M_SIZE*18, TFT_WHITE);
+    _tft->fillRect(M_SIZE*(6), M_SIZE*(6), M_SIZE*47, M_SIZE*18, TFT_WHITE);
     _tft->setTextColor(TFT_BLACK, TFT_WHITE);
     _tft->drawString(_cycleStatsBuffer, M_SIZE*(6), M_SIZE*(6), 1);
 
@@ -227,7 +227,7 @@ void MyTFTeSPI::plotCycleStats()
 
 void MyTFTeSPI::plotScore()
 {
-    _tft->fillRect(M_SIZE*(190), M_SIZE*(6), M_SIZE*48, M_SIZE*18, TFT_WHITE);
+    _tft->fillRect(M_SIZE*(190), M_SIZE*(6), M_SIZE*47, M_SIZE*18, TFT_WHITE);
     _tft->setTextColor(TFT_BLACK, TFT_WHITE);
     _tft->drawRightString(_scoreBuffer, M_SIZE*(236), M_SIZE*(6), 1);
 
@@ -312,6 +312,11 @@ void MyTFTeSPI::setAction(const char *action)
     strcpy(_actionBuffer, action);
 }
 
+void MyTFTeSPI::setCycleStats(const char *cycleStats)
+{
+    strcpy(_cycleStatsBuffer, cycleStats);
+}
+
 void MyTFTeSPI::setValueColorNeutral()
 {
     _valueColor = TFT_BLACK;
@@ -346,5 +351,8 @@ void MyTFTeSPI::loop()
         sprintf(_countdownBuffer, " %c ", 'x');
     }
     _tft->drawCentreString(_countdownBuffer, M_SIZE*(216), M_SIZE*(100), 2);
+
+    plotCycleStats();
+    plotScore();
 }
 

@@ -83,6 +83,7 @@ void MyTrainer::startTraining()
     _trainingEndMillis = -1;
     _currentCycle = 0;
     _currentCycleStartMillis = _trainingStartMillis;
+    _myTFTeSPI->setCycleStats(getCycleStats());
     Serial.print("==== Training START | millis: "); Serial.println(_trainingStartMillis);
 }
 
@@ -105,12 +106,33 @@ void MyTrainer::endTraining()
     _myESP32AudioI2S->stopSound();
     _myESP32AudioI2S->playEndSound();
     _myTFTeSPI->setAction("end");
+    _myTFTeSPI->setCycleStats(getCycleStats());
     _myTFTeSPI->setValueColorNeutral();
 }
 
 bool MyTrainer::currentCycleIsActivity()
 {
     return (_currentCycle % 2 == 1);
+}
+
+char* MyTrainer::getCycleStats()
+{
+    char* cycleStatsBuffer = new char[6];
+    if (_currentCycle == -1 || _currentCycle == 255) {
+        strcpy(cycleStatsBuffer, "cycle");
+        return cycleStatsBuffer;
+    }
+
+    char currentCycleBuffer[3];
+    sprintf(currentCycleBuffer, "%d", _currentCycle + 1);
+    char totalCyclesBuffer[3];
+    sprintf(totalCyclesBuffer, "%d", _totalCycles);
+
+    strcpy(cycleStatsBuffer, currentCycleBuffer);
+    strcat(cycleStatsBuffer, "/");
+    strcat(cycleStatsBuffer, totalCyclesBuffer);
+
+    return cycleStatsBuffer;
 }
 
 void MyTrainer::loop()
@@ -198,6 +220,7 @@ void MyTrainer::loop()
     _myESP32AudioI2S->stopMeasurementWithinBounds();
     _myESP32AudioI2S->stopRestSound();
     _myESP32AudioI2S->stopEndSound();
+    _myTFTeSPI->setCycleStats(getCycleStats());
     _myTFTeSPI->setValueColorNeutral();
 }
 

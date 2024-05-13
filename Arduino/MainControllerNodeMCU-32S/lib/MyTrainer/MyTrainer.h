@@ -17,6 +17,8 @@ public:
     void startTraining();
     void endTraining();
     bool currentCycleIsActivity();
+    char* getCycleStats();
+
     void loop();
 
 

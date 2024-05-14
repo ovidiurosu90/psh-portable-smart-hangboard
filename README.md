@@ -85,7 +85,7 @@ Not used at the moment
 
 NOTE At the moment, these connections need to be done manually, as in: 4 wires should be soldered directly on the PCB. This is dirty, error prone, and hopefully temporary.
 With the new custom PCB version for MainControllerNodeMCU-32S, we'll have a proper JST-XH 4-pin connector that will be used for this purpose.
-Check [KiCad/README.md](https://github.com/ovidiurosu90/psh-portable-smart-hangboard/tree/main/KiCad).
+Check [KiCad/README.md](KiCad).
 
 
 | [NodeMcu ESP-32S Lua ESP-WROOM-32](https://opencircuit.shop/product/nodemcu-esp-32s-lua-esp-wroom-32-wifi) | [SparkFun MAX98357A I2S Audio Breakout](https://opencircuit.shop/product/sparkfun-i2s-audio-breakout-max98357a) => [guide](https://learn.sparkfun.com/tutorials/i2s-audio-breakout-hookup-guide/all) |
@@ -114,4 +114,11 @@ Check [KiCad/README.md](https://github.com/ovidiurosu90/psh-portable-smart-hangb
 | ---------------------------------------------------------------------------------------------------------- | --------- |
 | G32 (input-output pin)                                                                                     | Available |
 | G34 (only output pin)                                                                                      | Available |
+
+
+## Others
+
+| Name | README |
+| --------------------- | ------ |
+| BOM Bill Of Materials | [BOM.md](BOM.md) |
 

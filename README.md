@@ -83,6 +83,11 @@ Not used at the moment
 | G19                                                                                                        | MISO                                                                                                                                                                                                                         |
 | G18                                                                                                        | SCK / SCLK (shared with display                                                                                                                                                                                              |
 
+NOTE At the moment, these connections need to be done manually, as in: 4 wires should be soldered directly on the PCB. This is dirty, error prone, and hopefully temporary.
+With the new custom PCB version for MainControllerNodeMCU-32S, we'll have a proper JST-XH 4-pin connector that will be used for this purpose.
+Check [KiCad/README.md](https://github.com/ovidiurosu90/psh-portable-smart-hangboard/tree/main/KiCad).
+
+
 | [NodeMcu ESP-32S Lua ESP-WROOM-32](https://opencircuit.shop/product/nodemcu-esp-32s-lua-esp-wroom-32-wifi) | [SparkFun MAX98357A I2S Audio Breakout](https://opencircuit.shop/product/sparkfun-i2s-audio-breakout-max98357a) => [guide](https://learn.sparkfun.com/tutorials/i2s-audio-breakout-hookup-guide/all) |
 | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | +5V (if we use +3.3V the volume fluctuates)                                                                | VDD                                                                                                                                                                                                  |

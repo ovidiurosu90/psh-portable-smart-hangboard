@@ -153,3 +153,16 @@ Check [wiki from JLCPCB](https://jlcpcb.com/help/article/362-how-to-generate-ger
 
 * IMPORTANT Check if you want to create or update another board, to save on transport
 
+
+# Task List
+## MainControllerNodeMCU-32S v0.1-20240428
+- [ ] Connect the SD Card reader on the TFT SPI display to the ESP32-S microcontroller via an JST-XH 4-pin connector
+- [ ] Add labels to J_DP_1
+- [ ] Change the footprint of J_DP_1 to a JST-XH 8-pin connector
+
+## ScaleModule v0.1-20240428
+- All done
+
+## SwitchesModule v0.1-20240428
+- All done
+

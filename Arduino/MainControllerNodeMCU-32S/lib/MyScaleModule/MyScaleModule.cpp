@@ -70,15 +70,17 @@ void MyScaleModule::getCalibrationConfigFromWiFi()
     delete configBuffer;
 }
 
-void  MyScaleModule::calibrateHeadless()
+void  MyScaleModule::calibrateHeadless(MySwitchesModule* mySwitchesModule)
 {
     if (!_knownWeightGrams) {
         Serial.println("CalibrateHeadless can't start as _knownWeightGrams is missing.");
         return;
     }
 
-    _myHX711Left->calibrateHeadless(_knownWeightGrams/2, _myTFTeSPI, _myESP32AudioI2S);
-    _myHX711Right->calibrateHeadless(_knownWeightGrams/2, _myTFTeSPI, _myESP32AudioI2S);
+    _myHX711Left->calibrateHeadless(_knownWeightGrams/2,
+        _myTFTeSPI, _myESP32AudioI2S, mySwitchesModule);
+    _myHX711Right->calibrateHeadless(_knownWeightGrams/2,
+        _myTFTeSPI, _myESP32AudioI2S, mySwitchesModule);
 
     _myTFTeSPI->plotFooter();
 }

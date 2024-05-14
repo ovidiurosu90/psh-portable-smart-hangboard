@@ -18,16 +18,41 @@ bool IS_RUNNING = true;
 
 void sw1PressedCallback()
 {
-    myTrainer->startTraining();
+    if (mySwitchesModule->sw4IsToggledOn()) {
+        myTrainer->startTraining();
+    } else {
+        myESP32AudioI2S->decreaseVolume(myTFTeSPI);
+    }
 }
 void sw2PressedCallback()
 {
-    myScaleModule->calibrateHeadless();
+    if (mySwitchesModule->sw4IsToggledOn()) {
+        myScaleModule->calibrateHeadless(mySwitchesModule);
+    } else {
+        if (mySwitchesModule->sw5IsToggledOn()) {
+            myESP32AudioI2S->storeVolumeInNVM(myTFTeSPI);
+        } else {
+            //NOTE Do nothing
+        }
+    }
 }
 void sw3PressedCallback()
 {
-    myTrainer->endTraining();
+    if (mySwitchesModule->sw4IsToggledOn()) {
+        myTrainer->endTraining();
+    } else {
+        myESP32AudioI2S->increaseVolume(myTFTeSPI);
+    }
 }
+void sw4ToggledCallback()
+{
+    myTFTeSPI->plotFooter();
+}
+void sw5ToggledCallback()
+{
+    myTFTeSPI->plotFooter();
+}
+
 
 void taskFunction0(void* pvParameters)
 {
@@ -75,11 +100,11 @@ void setup()
     myWiFi->setApiToken(API_TOKEN);
 
     //NOTE The pins are in lib/TFT_eSPI/User_Setup.h
-    myTFTeSPI = new MyTFTeSPI();
+    myTFTeSPI = new MyTFTeSPI(mySwitchesModule);
     myTFTeSPI->initSD(33);
 
     myESP32AudioI2S = new MyESP32AudioI2S(26, 25, 22);
-    myESP32AudioI2S->setVolume(5);
+    myESP32AudioI2S->setVolumeIfNotInNVM(5);
 
     //NOTE Not all ESP-32S pins can be used as outputs
     myScaleModule = new MyScaleModule(5, 4, "_L", 16, 15, "_R");
@@ -90,6 +115,8 @@ void setup()
     mySwitchesModule->setSw1PressedCallback(&sw1PressedCallback);
     mySwitchesModule->setSw2PressedCallback(&sw2PressedCallback);
     mySwitchesModule->setSw3PressedCallback(&sw3PressedCallback);
+    mySwitchesModule->setSw4ToggledCallback(&sw4ToggledCallback);
+    mySwitchesModule->setSw5ToggledCallback(&sw5ToggledCallback);
 
     myTaskRunner = new MyTaskRunner();
     myTaskRunner->addTaskCore0(&taskFunction0);

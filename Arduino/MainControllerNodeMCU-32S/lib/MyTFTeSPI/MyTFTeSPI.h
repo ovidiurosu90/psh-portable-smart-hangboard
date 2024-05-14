@@ -7,6 +7,8 @@
 #include <Arduino.h>
 #include "SD.h"
 
+#include "MySwitchesModule.h"
+
 #define M_SIZE 0.667 // Define meter size
 #define TFT_GREY   0x5AEB
 //#define TFT_ORANGE 0xFD20 /* 255, 165, 0 */
@@ -53,7 +55,7 @@ TFT_RED = dark_blue
 class MyTFTeSPI
 {
 public:
-    MyTFTeSPI();
+    MyTFTeSPI(MySwitchesModule* mySwitchesModule);
 
     fs::SDFS initSD(uint8_t ssPin);
     void beginSD();
@@ -86,6 +88,7 @@ public:
 protected:
 
 private:
+    MySwitchesModule* _mySwitchesModule;
     TFT_eSPI* _tft;
     uint8_t _ssPin;
 

@@ -1,7 +1,9 @@
 #include <MyTFTeSPI.h>
 
-MyTFTeSPI::MyTFTeSPI()
+MyTFTeSPI::MyTFTeSPI(MySwitchesModule* mySwitchesModule)
 {
+    _mySwitchesModule = mySwitchesModule;
+
     _tft = new TFT_eSPI();
     _tft->init();
     _tft->setRotation(3);
@@ -259,9 +261,19 @@ void MyTFTeSPI::plotCountdown()
 void MyTFTeSPI::plotFooter()
 {
     // Under the analog meter
-    plotFooterLine1("Press sw1 to start training");
-    plotFooterLine2("Press sw3 to end training");
-    plotFooterLine3("S1:Train  S2:Calib  S3:End");
+    if(_mySwitchesModule->sw4IsToggledOn()) {
+        plotFooterLine1("Press sw1 to start training");
+        plotFooterLine2("Press sw3 to end training");
+        plotFooterLine3("S1:Train  S2:Calib  S3:End");
+    } else {
+        plotFooterLine1("Press sw1 to decrease volume");
+        plotFooterLine2("Press sw3 to increase volume");
+        if(_mySwitchesModule->sw5IsToggledOn()) {
+            plotFooterLine3("S1:Vol-   S2:Vol=  S3:Vol+");
+        } else {
+            plotFooterLine3("S1:Vol-   S2:x     S3:Vol+");
+        }
+    }
 }
 
 void MyTFTeSPI::plotFooterLine1(const char *line)

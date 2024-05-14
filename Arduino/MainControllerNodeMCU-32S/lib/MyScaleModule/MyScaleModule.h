@@ -6,6 +6,7 @@
 #include "MyTFTeSPI.h"
 #include "MyESP32AudioI2S.h"
 #include "MyWiFi.h"
+#include "MySwitchesModule.h"
 
 class MyScaleModule
 {
@@ -16,7 +17,7 @@ public:
     void init(MyTFTeSPI* myTFTeSPI, MyESP32AudioI2S* myESP32AudioI2S, MyWiFi* myWiFi);
     void getCalibrationConfigFromWiFi();
 
-    void calibrateHeadless();
+    void calibrateHeadless(MySwitchesModule* mySwitchesModule);
     uint32_t getKnownWeightGrams();
 
     float getTotalMeasurement();

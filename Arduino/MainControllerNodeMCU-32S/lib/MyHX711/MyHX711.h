@@ -6,6 +6,7 @@
 
 #include "MyTFTeSPI.h"
 #include "MyESP32AudioI2S.h"
+#include "MySwitchesModule.h"
 
 class MyHX711
 {
@@ -22,7 +23,7 @@ public:
     void useCalibrationData(bool runTare = true);
     void calibrate();
     void calibrateHeadless(uint32_t knownWeightGrams, MyTFTeSPI* myTFTeSPI,
-        MyESP32AudioI2S* myESP32AudioI2S);
+        MyESP32AudioI2S* myESP32AudioI2S, MySwitchesModule* mySwitchesModule);
     void tare();
     float getMeasurement();
     void printMeasurement();

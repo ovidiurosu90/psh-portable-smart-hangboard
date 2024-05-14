@@ -16,6 +16,41 @@ Provide a portable smart hangboard to use for finger strength training
 
 ![CAD vs Real World](./Images/PSH_Portable_Smart_Hangboard_May_2024_v3_2024-05-13_CAD_vs_real_world.PNG "CAD vs Real World")
 
+## Usage
+- Power the microcontroller via its micro-USB port (+5V)
+- Wait for the microcontroller to finish setting things up (it's ready when it says 'idle' on the lower left side of analog meter)
+- There are 3 big black momentary switches (labeled SW1, SW2 and SW3)
+- There are 3 small toggle switches (labeled SW4, SW5 and SW6)
+- The functionality of the switches is described below
+
+### SW1
+If SW4 is toggled ON: start training
+
+Else: decrease volume
+
+### SW2
+If SW4 is toggled ON: start calibrating
+
+Else: store volume into NVS (only if SW5 is toggled ON)
+
+### SW3
+If SW4 is toggled ON: end training
+
+Else: increase volume
+
+### SW4
+If toggled ON: show train menu
+
+Else: show volume menu
+
+### SW5
+If toggled ON: allow NVS to be updated (for calibration and for volume)
+
+Else: don't allow NVS to be updated
+
+### SW6
+Not used at the moment
+
 
 ## Wiring
 

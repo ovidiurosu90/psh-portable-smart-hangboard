@@ -25,6 +25,65 @@ bool MyESP32AudioI2S::connectToFS(fs::FS fs, const char* path)
     return connecttoFS(fs, path);
 }
 
+void MyESP32AudioI2S::setVolumeIfNotInNVM(uint8_t vol)
+{
+    _prefsVolume.begin(_prefsVolName, _PREFS_RO_MODE);
+    if (_prefsVolume.isKey("vol")) {
+        _volume = _prefsVolume.getUShort("vol");
+        Serial.print("Got volume from NVM: "); Serial.println(_volume);
+    } else {
+        _volume = vol;
+    }
+
+    setVolume(_volume);
+    Serial.print("Volume set to "); Serial.println(_volume);
+    _prefsVolume.end();
+}
+void MyESP32AudioI2S::decreaseVolume(MyTFTeSPI* myTFTeSPI)
+{
+    if (_volume == 0) {
+        return;
+    }
+    _volume--;
+    setVolume(_volume);
+    Serial.print("Volume set to "); Serial.println(_volume);
+
+    char message[26];
+    char volumeBuffer[4];
+    sprintf(volumeBuffer, "%u", _volume);
+    strcpy(message, "Volume set to ");
+    strcat(message, volumeBuffer);
+    myTFTeSPI->plotFooterLine1(message);
+}
+void MyESP32AudioI2S::storeVolumeInNVM(MyTFTeSPI* myTFTeSPI)
+{
+    _prefsVolume.begin(_prefsVolName, _PREFS_RW_MODE);
+    _prefsVolume.putUShort("vol", _volume);
+    _prefsVolume.end();
+
+    Serial.print("Volume stored in NVM in '"); Serial.print(_prefsVolName);
+    Serial.println("'!");
+
+    myTFTeSPI->plotFooterLine1("Volume stored in NVM");
+}
+void MyESP32AudioI2S::increaseVolume(MyTFTeSPI* myTFTeSPI)
+{
+    if (_volume == 21) {
+        return;
+    }
+
+    _volume++;
+    setVolume(_volume);
+    Serial.print("Volume set to "); Serial.println(_volume);
+
+    char message[26];
+    char volumeBuffer[4];
+    sprintf(volumeBuffer, "%u", _volume);
+    strcpy(message, "Volume set to ");
+    strcat(message, volumeBuffer);
+    myTFTeSPI->plotFooterLine1(message);
+}
+
 void MyESP32AudioI2S::stopSound()
 {
     if (isRunning()) {

@@ -3,7 +3,8 @@
 
 #include "Audio.h"
 #include <FS.h>
-
+#include <Preferences.h>
+#include <MyTFTeSPI.h>
 
 class MyESP32AudioI2S: public Audio
 {
@@ -13,6 +14,11 @@ public:
     bool connectToHost(const char* host, const char* username = "",
                        const char* password = "");
     bool connectToFS(fs::FS fs, const char* path);
+
+    void setVolumeIfNotInNVM(uint8_t vol);
+    void decreaseVolume(MyTFTeSPI* myTFTeSPI);
+    void storeVolumeInNVM(MyTFTeSPI* myTFTeSPI);
+    void increaseVolume(MyTFTeSPI* myTFTeSPI);
 
     void stopSound();
 
@@ -43,6 +49,12 @@ public:
 protected:
 
 private:
+    Preferences _prefsVolume;
+    const bool _PREFS_RW_MODE = false;
+    const bool _PREFS_RO_MODE = true;
+    const char* _prefsVolName = "volPrefs";
+
+    uint8_t _volume = 8;
     char _soundPath[64];
 
     bool _isPlayingGetReady                = false;

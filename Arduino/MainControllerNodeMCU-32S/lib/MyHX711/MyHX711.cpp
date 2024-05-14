@@ -193,7 +193,7 @@ void MyHX711::calibrate()
 }
 
 void MyHX711::calibrateHeadless(uint32_t knownWeightGrams, MyTFTeSPI* myTFTeSPI,
-    MyESP32AudioI2S* myESP32AudioI2S
+    MyESP32AudioI2S* myESP32AudioI2S, MySwitchesModule* mySwitchesModule
 ) {
     printStoredCalibrationData();
 
@@ -258,9 +258,14 @@ void MyHX711::calibrateHeadless(uint32_t knownWeightGrams, MyTFTeSPI* myTFTeSPI,
     // myESP32AudioI2S->playEndSound();
 
     delay(2000);
-    Serial.print("Storing calibration data in the NVS of the ESP32 (name: '");
-    Serial.print(_prefsCalName); Serial.println("') ...");
-    storeCalibrationData(_offset, _scale);
+    if (mySwitchesModule->sw5IsToggledOn()) {
+        Serial.print("Storing calibration data in the NVS of the ESP32 (name: '");
+        Serial.print(_prefsCalName); Serial.println("') ...");
+        storeCalibrationData(_offset, _scale);
+    } else {
+        Serial.print("Calibration data was not stored in the NVS of the ESP32 ");
+        Serial.println("because SW5 is toggled off!");
+    }
     useCalibrationData(false);
     myTFTeSPI->plotFooterLine2("CALIB stored in NVS");
     delay(2000);

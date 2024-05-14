@@ -36,7 +36,31 @@ void MySwitchesModule::setSw3PressedCallback(void (*callback)())
 {
     _sw3PressedCallback = callback;
 }
+void MySwitchesModule::setSw4ToggledCallback(void (*callback)())
+{
+    _sw4ToggledCallback = callback;
+}
+void MySwitchesModule::setSw5ToggledCallback(void (*callback)())
+{
+    _sw5ToggledCallback = callback;
+}
+void MySwitchesModule::setSw6ToggledCallback(void (*callback)())
+{
+    _sw6ToggledCallback = callback;
+}
 
+bool MySwitchesModule::sw4IsToggledOn()
+{
+    return _sw4Value == 0;
+}
+bool MySwitchesModule::sw5IsToggledOn()
+{
+    return _sw5Value == 0;
+}
+bool MySwitchesModule::sw6IsToggledOn()
+{
+    return _sw6Value == 0;
+}
 
 void MySwitchesModule::loop()
 {
@@ -71,17 +95,28 @@ void MySwitchesModule::loop()
     if (sw4Value != _sw4Value) {
         _sw4Value = sw4Value;
         Serial.print("Switch 4 value: "); Serial.println(_sw4Value);
+
+        if (_sw4ToggledCallback != NULL) {
+            _sw4ToggledCallback();
+        }
     }
     int sw5Value = digitalRead(_sw5Pin);
     if (sw5Value != _sw5Value) {
         _sw5Value = sw5Value;
         Serial.print("Switch 5 value: "); Serial.println(_sw5Value);
+
+        if (_sw5ToggledCallback != NULL) {
+            _sw5ToggledCallback();
+        }
     }
     int sw6Value = digitalRead(_sw6Pin);
     if (sw6Value != _sw6Value) {
         _sw6Value = sw6Value;
         Serial.print("Switch 6 value: "); Serial.println(_sw6Value);
-    }
 
+        if (_sw6ToggledCallback != NULL) {
+            _sw6ToggledCallback();
+        }
+    }
 }
 

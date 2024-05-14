@@ -43,6 +43,9 @@ void taskFunction0(void* pvParameters)
                 // IS_RUNNING = false;
             }
         }
+        if (myWiFi->postResults()) {
+            myTFTeSPI->plotFooterLine1("Results posted!");
+        }
         delay(50);
     }
 }

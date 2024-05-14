@@ -13,31 +13,31 @@ You have to send the gerber files to a PCB manufacturer, then solder the connect
 
 ## Configuration
 ### PCB Layers
-F.Cu => tracks & maybe name + version
-B.Cu => tracks & maybe name + version
-F.Adhesive => vias + pads
-B.Adhesive => vias + pads
-F.Paste => vias + pads
-B.Paste => vias + pads
-F.Silkscreen => labels front
-B.Silkscreen => labels back + pcb dimensions (NOTE in 3D Viewer, you have to make visible Off-board Silkscreen)
-F.Mask => pads
-B.Mask => pads
-User.Comments => mounting holes exterior
-Edge.Cuts => pcb edges
-F.Courtyard => edges components on the pcb front
-B.Courtyard => edges components on the pcb back
-F.Fab => references footprints front
-B.Fab => references footprints back
+- F.Cu => tracks & maybe name + version
+- B.Cu => tracks & maybe name + version
+- F.Adhesive => vias + pads
+- B.Adhesive => vias + pads
+- F.Paste => vias + pads
+- B.Paste => vias + pads
+- F.Silkscreen => labels front
+- B.Silkscreen => labels back + pcb dimensions (NOTE in 3D Viewer, you have to make visible Off-board Silkscreen)
+- F.Mask => pads
+- B.Mask => pads
+- User.Comments => mounting holes exterior
+- Edge.Cuts => pcb edges
+- F.Courtyard => edges components on the pcb front
+- B.Courtyard => edges components on the pcb back
+- F.Fab => references footprints front
+- B.Fab => references footprints back
 
 ### Design Rules -> Constraints
-Minimum track width 0.2 mm
-Minimum via diameter => 0.7 mm
-Minimum through hole => 0.4 mm
-Hole to hole clearance => 0.25mm
-Minimum uVia diameter => 0.7 mm
-Minimum uVia hole => 0.4mm
-Minimum text height => 0.5mm
+- Minimum track width 0.2 mm
+- Minimum via diameter => 0.7 mm
+- Minimum through hole => 0.4 mm
+- Hole to hole clearance => 0.25mm
+- Minimum uVia diameter => 0.7 mm
+- Minimum uVia hole => 0.4mm
+- Minimum text height => 0.5mm
 
 ### Design Rules -> Net Classes
 - Default

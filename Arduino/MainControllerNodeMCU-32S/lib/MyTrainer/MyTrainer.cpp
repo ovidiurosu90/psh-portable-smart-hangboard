@@ -82,6 +82,9 @@ void MyTrainer::startTraining()
     _trainingStartMillis = millis();
     _trainingEndMillis = -1;
     _currentCycle = 0;
+    _sessionUID = millis() + rand()%50;
+    _currentScoreHistoryIndex = 0;
+    memset(_scoreHistory, 0, sizeof _scoreHistory);
     _scoreValue = 0;
     _currentCycleStartMillis = _trainingStartMillis;
     _myTFTeSPI->setCycleStats(getCycleStats());
@@ -111,6 +114,8 @@ void MyTrainer::endTraining()
     _myTFTeSPI->setCycleStats(getCycleStats());
     _myTFTeSPI->setScore(_scoreValue);
     _myTFTeSPI->setValueColorNeutral();
+
+    _myWiFi->schedulePostResults(_sessionUID, _scoreValue, _scoreHistory);
 }
 
 bool MyTrainer::currentCycleIsActivity()
@@ -206,6 +211,7 @@ void MyTrainer::loop()
 
             if (millis() - _scoreLastPrintMillis > _scoreLastPrintFrequencyMillis) {
                 _currentScore = (int)(_scaleTotalMeasurement / 1000); // g to kg
+                _scoreHistory[_currentScoreHistoryIndex++] = _currentScore;
                 _scoreValue += _currentScore;
 
                 Serial.print("Score +"); Serial.print(_currentScore);

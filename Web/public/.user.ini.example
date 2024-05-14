@@ -1,3 +1,4 @@
+date.timezone=FILL_IN
 error_reporting=0
 display_errors=Off
 display_startup_errors=Off

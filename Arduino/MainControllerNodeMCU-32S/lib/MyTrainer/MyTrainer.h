@@ -41,6 +41,10 @@ private:
     uint32_t _currentCycleMillis = -1;
     uint32_t _currentCycleTotalMillis = -1; // will take either activity or rest total
 
+    uint32_t _sessionUID = -1;
+    uint8_t  _currentScoreHistoryIndex = 0;
+    uint32_t _scoreHistory[UINT8_MAX];
+
     uint32_t _currentScore = -1;
     uint32_t _scoreValue = -1;
     uint32_t _scoreLastPrintMillis = -1;

@@ -71,3 +71,83 @@ char* MyWiFi::getConfig(bool calibration)
     return configBuffer;
 }
 
+void MyWiFi::schedulePostResults(uint32_t sessionUID, uint32_t scoreValue,
+    uint32_t scoreHistory[]
+) {
+    _scheduledPostResults = true;
+    _sessionUID = sessionUID;
+    _scoreValue = scoreValue;
+    _scoreHistory = scoreHistory;
+    Serial.print("POST Results scheduled! sessionUID: "); Serial.print(_sessionUID);
+    Serial.print(", scoreValue: "); Serial.println(_scoreValue);
+}
+
+bool MyWiFi::postResults()
+{
+    bool result = false;
+    if (!_scheduledPostResults) { // Nothing to post
+        return result;
+    }
+
+    if (WiFi.status() != WL_CONNECTED) {
+        Serial.println("WiFi is not connected, so we cannot send the config!");
+        return result;
+    }
+
+    char endPoint[165];
+    strcpy(endPoint, _apiUrl);
+    if (endPoint[strlen(endPoint) - 1] != '/') {
+        strcat(endPoint, "/");
+    }
+    strcat(endPoint, "psh_post_results.php");
+
+    HTTPClient http;
+    http.begin(endPoint);
+    http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+    http.addHeader("PSHTOKEN", _apiToken);
+
+    String httpRequestData = "";
+    char sessionUIDBuffer[11];
+    sprintf(sessionUIDBuffer, "%d", _sessionUID);
+    httpRequestData += String("sessionUID=");
+    httpRequestData += String(sessionUIDBuffer);
+
+    char scoreValueBuffer[11];
+    sprintf(scoreValueBuffer, "%d", _scoreValue);
+    httpRequestData += String("&scoreValue=");
+    httpRequestData += String(scoreValueBuffer);
+
+
+    httpRequestData += String("&scoreHistory=");
+    char scoreHistoryValueBuffer[11];
+    for (int i = 0; _scoreHistory[i] != '\0'; i++) {
+        sprintf(scoreHistoryValueBuffer, "%d", _scoreHistory[i]);
+        httpRequestData += String(scoreHistoryValueBuffer);
+        httpRequestData += String(",");
+    }
+    httpRequestData.remove(httpRequestData.length() - 1); // removing the last comma
+
+    int httpResponseCode = http.POST(httpRequestData);
+    if (httpResponseCode <= 0) {
+        Serial.print("Invalid HTTP response code: "); Serial.println(httpResponseCode);
+        http.end();
+        return result;
+    }
+
+    _scheduledPostResults = false;
+    String payload = http.getString();
+    if (httpResponseCode != 200) {
+        Serial.print("HTTP non-ok response code: "); Serial.println(httpResponseCode);
+        Serial.print("Payload: "); Serial.println(payload);
+        http.end();
+        return result;
+    }
+
+    Serial.println("Sending Results");
+    Serial.print("- request data: "); Serial.println(httpRequestData);
+    Serial.print("- response payload: "); Serial.println(payload.c_str());
+    result = strcmp(payload.c_str(), "1") == 0;
+    http.end();
+    return result;
+}
+

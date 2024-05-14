@@ -63,8 +63,13 @@ php composer.phar install
 | ---------------- |
 | 87200            |
 
-3. Results (TODO)
+3. Results
 
+| When                       | Score | SessionUID | History                                                     |
+| -------------------------- | ----- | ---------- | ----------------------------------------------------------- |
+| Tue, May 14 at 09:24:24 AM | 278   | 12941      | 11,15,14,13,17,14,13,12,19,12,15,14,14,15,14,13,13,13,15,12 |
+
+Please note the custom date and time format. You'll have to set the same in your spreadsheet
 
 ## Configure the API
 ```bash

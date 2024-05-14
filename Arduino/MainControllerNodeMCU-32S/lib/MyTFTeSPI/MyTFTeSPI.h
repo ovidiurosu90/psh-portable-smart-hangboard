@@ -62,7 +62,7 @@ public:
     void endSD();
 
     void plotNeedle(int value, byte ms_delay);
-    void plotAnalogMeter();
+    void plotAnalogMeter(uint8_t scaleLowerLimitKg = 50, uint8_t scaleUpperLimitKg = 75);
     void plotCycleStats();
     void plotScore();
     void plotAction();
@@ -77,6 +77,9 @@ public:
     void setAction(const char *action);
     void setCycleStats(const char *cycleStats);
     void setScore(uint32_t score);
+
+    void setLabelColor(uint8_t scaleLowerLimitKg, uint8_t scaleUpperLimitKg,
+        uint8_t labelValue);
 
     void setValueColorNeutral();
     void setValueColorWithinBounds();

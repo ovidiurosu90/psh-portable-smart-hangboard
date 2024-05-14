@@ -8,6 +8,9 @@ MyTrainer::MyTrainer(MyTFTeSPI* myTFTeSPI, MyESP32AudioI2S* myESP32AudioI2S,
     _myWiFi = myWiFi;
 
     getConfigFromWiFi();
+    _myTFTeSPI->plotAnalogMeter(_scaleLowerLimitGrams / 1000, // g to kg
+        _scaleUpperLimitGrams / 1000); // g to kg
+    _myTFTeSPI->plotNeedle(0, 0); // Put meter needle at 0
 }
 
 void MyTrainer::addScaleTotalMeasurement(float totalMeasurement)

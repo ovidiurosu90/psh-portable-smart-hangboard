@@ -101,7 +101,7 @@ void MyTFTeSPI::plotNeedle(int value, byte ms_delay)
     }
 }
 
-void MyTFTeSPI::plotAnalogMeter()
+void MyTFTeSPI::plotAnalogMeter(uint8_t scaleLowerLimitKg, uint8_t scaleUpperLimitKg)
 {
     // Meter outline
     _tft->fillRect(0, 0, M_SIZE*239, M_SIZE*131, TFT_GREY);
@@ -112,6 +112,14 @@ void MyTFTeSPI::plotAnalogMeter()
     plotCycleStats();
     plotScore();
 
+    int8_t myMappedLowerLimit = map(scaleLowerLimitKg, 0, 100, -50, 50);
+    int8_t myMappedUpperLimit = map(scaleUpperLimitKg, 0, 100, -50, 50);
+    Serial.print("scaleLowerLimitKg ("); Serial.print(scaleLowerLimitKg);
+    Serial.print(") mapped to myMappedLowerLimit ("); Serial.print(myMappedLowerLimit);
+    Serial.println(")");
+    Serial.print("scaleUpperLimitKg ("); Serial.print(scaleUpperLimitKg);
+    Serial.print(") mapped to myMappedUpperLimit ("); Serial.print(myMappedUpperLimit);
+    Serial.println(")");
 
     // Draw ticks every 5 degrees from -50 to +50 degrees (100 deg. FSD swing)
     for (int i = -50; i < 51; i += 5) {
@@ -134,22 +142,17 @@ void MyTFTeSPI::plotAnalogMeter()
         int x3 = sx2 * M_SIZE*100 + M_SIZE*120;
         int y3 = sy2 * M_SIZE*100 + M_SIZE*150;
 
-        if (i >= -50 && i < -25) {
+        if (i >= -50 && i < myMappedLowerLimit) {
             _tft->fillTriangle(x0, y0, x1, y1, x2, y2, MYCOLOR_YELLOW);
             _tft->fillTriangle(x1, y1, x2, y2, x3, y3, MYCOLOR_YELLOW);
         }
 
-        if (i >= -25 && i < 0) {
-            _tft->fillTriangle(x0, y0, x1, y1, x2, y2, MYCOLOR_YELLOW);
-            _tft->fillTriangle(x1, y1, x2, y2, x3, y3, MYCOLOR_YELLOW);
-        }
-
-        if (i >= 0 && i < 25) {
+        if (i >= myMappedLowerLimit && i < myMappedUpperLimit) {
             _tft->fillTriangle(x0, y0, x1, y1, x2, y2, MYCOLOR_GREEN);
             _tft->fillTriangle(x1, y1, x2, y2, x3, y3, MYCOLOR_GREEN);
         }
 
-        if (i >= 25 && i < 50) {
+        if (i >= myMappedUpperLimit && i < 50) {
             _tft->fillTriangle(x0, y0, x1, y1, x2, y2, MYCOLOR_BLUE);
             _tft->fillTriangle(x1, y1, x2, y2, x3, y3, MYCOLOR_BLUE);
         }
@@ -173,23 +176,23 @@ void MyTFTeSPI::plotAnalogMeter()
             y0 = sy * (M_SIZE*100 + tl + 10) + M_SIZE*150;
             switch (i / 25) {
                 case -2:
-                    _tft->setTextColor(TFT_BLACK);
+                    setLabelColor(scaleLowerLimitKg, scaleUpperLimitKg, 0);
                     _tft->drawCentreString("0", x0+4, y0-4, 1);
                     break;
                 case -1:
-                    _tft->setTextColor(TFT_BLACK);
+                    setLabelColor(scaleLowerLimitKg, scaleUpperLimitKg, 25);
                     _tft->drawCentreString("25", x0+2, y0, 1);
                     break;
                 case 0:
-                    _tft->setTextColor(MYCOLOR_GREEN);
+                    setLabelColor(scaleLowerLimitKg, scaleUpperLimitKg, 50);
                     _tft->drawCentreString("50", x0, y0, 1);
                     break;
                 case 1:
-                    _tft->setTextColor(MYCOLOR_GREEN);
+                    setLabelColor(scaleLowerLimitKg, scaleUpperLimitKg, 75);
                     _tft->drawCentreString("75", x0, y0, 1);
                     break;
                 case 2:
-                    _tft->setTextColor(TFT_BLACK);
+                    setLabelColor(scaleLowerLimitKg, scaleUpperLimitKg, 100);
                     _tft->drawCentreString("100", x0-2, y0-4, 1);
                     break;
             }
@@ -216,7 +219,7 @@ void MyTFTeSPI::plotAnalogMeter()
 
     _tft->drawRect(1, M_SIZE*3, M_SIZE*236, M_SIZE*126, TFT_BLACK); // Draw bezel line
 
-    plotNeedle(0, 0); // Put meter needle at 0
+    // plotNeedle(0, 0); // Put meter needle at 0
 }
 
 void MyTFTeSPI::plotCycleStats()
@@ -353,6 +356,16 @@ void MyTFTeSPI::setCycleStats(const char *cycleStats)
 void MyTFTeSPI::setScore(uint32_t score)
 {
     _scoreValue = score;
+}
+
+void MyTFTeSPI::setLabelColor(uint8_t scaleLowerLimitKg, uint8_t scaleUpperLimitKg,
+    uint8_t labelValue
+) {
+    if (scaleLowerLimitKg == labelValue || scaleUpperLimitKg == labelValue) {
+        _tft->setTextColor(MYCOLOR_GREEN);
+    } else {
+        _tft->setTextColor(TFT_BLACK);
+    }
 }
 
 void MyTFTeSPI::setValueColorNeutral()

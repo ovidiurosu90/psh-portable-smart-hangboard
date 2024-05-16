@@ -10,7 +10,7 @@ MyWiFi::MyWiFi(const char *ssid, const char *passphrase)
 void MyWiFi::connect()
 {
     while (_WiFi.status() != WL_CONNECTED) {
-        delay(500);
+        delay(200);
         Serial.print(".");
     }
 

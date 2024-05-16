@@ -92,35 +92,45 @@ void setup()
 {
     Serial.begin(115200);
 
+    Serial.println("########### SETUP start"); // debug
     mySwitchesModule = new MySwitchesModule(21, 27, 13, 36, 39, 35);
+    Serial.println("########### MySwitchesModule initialized"); // debug
 
     myWiFi = new MyWiFi(WIFI_SSID, WIFI_PASSPHRASE);
     myWiFi->connect();
     myWiFi->setApiUrl(API_URL);
     myWiFi->setApiToken(API_TOKEN);
+    Serial.println("########### Wifi connected"); // debug
 
     //NOTE The pins are in lib/TFT_eSPI/User_Setup.h
     myTFTeSPI = new MyTFTeSPI(mySwitchesModule);
     myTFTeSPI->initSD(33);
+    Serial.println("########### MyTFTeSPI initialized"); // debug
 
     myESP32AudioI2S = new MyESP32AudioI2S(26, 25, 22);
     myESP32AudioI2S->setVolumeIfNotInNVM(5);
+    Serial.println("########### MyESP32AudioI2S initialized"); // debug
 
     //NOTE Not all ESP-32S pins can be used as outputs
     myScaleModule = new MyScaleModule(5, 4, "_L", 16, 15, "_R");
     myScaleModule->init(myTFTeSPI, myESP32AudioI2S, myWiFi);
+    Serial.println("########### MyScaleModule initialized"); // debug
 
     myTrainer = new MyTrainer(myTFTeSPI, myESP32AudioI2S, myWiFi);
+    Serial.println("########### MyTrainer initialized"); // debug
 
     mySwitchesModule->setSw1PressedCallback(&sw1PressedCallback);
     mySwitchesModule->setSw2PressedCallback(&sw2PressedCallback);
     mySwitchesModule->setSw3PressedCallback(&sw3PressedCallback);
     mySwitchesModule->setSw4ToggledCallback(&sw4ToggledCallback);
     mySwitchesModule->setSw5ToggledCallback(&sw5ToggledCallback);
+    Serial.println("########### Added 5 callbacks to the MySwitchesModule"); // debug
 
     myTaskRunner = new MyTaskRunner();
     myTaskRunner->addTaskCore0(&taskFunction0);
     myTaskRunner->addTaskCore1(&taskFunction1);
+    Serial.println("########### Added 2 tasks to the MyTaskRunner"); // debug
+    Serial.println("########### SETUP end"); // debug
 }
 
 void loop()

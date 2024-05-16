@@ -15,7 +15,7 @@ void MyTaskRunner::addTaskCore0(TaskFunction_t taskFunction)
         &_task1,     /* Task handle to keep track of created task */
         0);          /* Pin task to core 0 */
 
-    delay(500);
+    delay(50);
 }
 
 void MyTaskRunner::addTaskCore1(TaskFunction_t taskFunction)
@@ -29,6 +29,6 @@ void MyTaskRunner::addTaskCore1(TaskFunction_t taskFunction)
         &_task2,     /* Task handle to keep track of created task */
         1);          /* Pin task to core 0 */
 
-    delay(500);
+    delay(50);
 }
 

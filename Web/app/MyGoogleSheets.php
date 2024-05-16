@@ -93,6 +93,12 @@ class MyGoogleSheets
         if (!empty($rows)) {
             foreach ($rows as $row) {
                 foreach ($row as $columnKey => $cell) {
+                    if (empty($headers[$columnKey])) {
+                        continue;
+                    }
+                    if (empty($storedData[$headers[$columnKey]])) {
+                        $storedData[$headers[$columnKey]] = [];
+                    }
                     $storedData[$headers[$columnKey]][] = $cell;
                 }
             }

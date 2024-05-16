@@ -14,6 +14,8 @@ public:
 
     void getConfigFromWiFi();
 
+    void setupTraining();
+
     void startTraining();
     void endTraining();
     bool currentCycleIsActivity();

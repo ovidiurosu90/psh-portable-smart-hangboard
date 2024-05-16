@@ -7,10 +7,7 @@ MyTrainer::MyTrainer(MyTFTeSPI* myTFTeSPI, MyESP32AudioI2S* myESP32AudioI2S,
     _myESP32AudioI2S = myESP32AudioI2S;
     _myWiFi = myWiFi;
 
-    getConfigFromWiFi();
-    _myTFTeSPI->plotAnalogMeter(_scaleLowerLimitGrams / 1000, // g to kg
-        _scaleUpperLimitGrams / 1000); // g to kg
-    _myTFTeSPI->plotNeedle(0, 0); // Put meter needle at 0
+    setupTraining();
 }
 
 void MyTrainer::addScaleTotalMeasurement(float totalMeasurement)
@@ -70,12 +67,27 @@ void MyTrainer::getConfigFromWiFi()
     delete configBuffer;
 }
 
+void MyTrainer::setupTraining()
+{
+    _myTFTeSPI->plotFooterLine1("Setting up training...");
+    Serial.println("Setting up training...");
+
+    getConfigFromWiFi();
+    _myTFTeSPI->plotAnalogMeter(_scaleLowerLimitGrams / 1000, // g to kg
+        _scaleUpperLimitGrams / 1000); // g to kg
+    _myTFTeSPI->plotNeedle(0, 0); // Put meter needle at 0
+
+    _myTFTeSPI->plotFooter();
+}
+
 void MyTrainer::startTraining()
 {
     if (_trainingInProgress) {
         Serial.println("Training already in progress!");
         return;
     }
+
+    setupTraining();
 
     _myESP32AudioI2S->stopSound();
     _myESP32AudioI2S->playGetReady();

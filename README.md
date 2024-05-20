@@ -16,9 +16,7 @@ Provide a portable smart hangboard to use for finger strength training
 
 ![CAD vs Real World](./Images/PSH_Portable_Smart_Hangboard_May_2024_v3_2024-05-13_CAD_vs_real_world.PNG "CAD vs Real World")
 
-## Usage
-- Power the microcontroller via its micro-USB port (+5V)
-- Wait for the microcontroller to finish setting things up (it's ready when it says 'idle' on the lower left side of analog meter)
+## Functionality of switches
 - There are 3 big black momentary switches (labeled SW1, SW2 and SW3)
 - There are 3 small toggle switches (labeled SW4, SW5 and SW6)
 - The functionality of the switches is described below
@@ -51,15 +49,35 @@ Else: don't allow NVS to be updated
 ### SW6
 Not used at the moment
 
+## Usage
+- Power the microcontroller via its micro-USB port (+5V)
+- Wait for the microcontroller to finish setting things up (it's ready when it says 'idle' on the lower left side of analog meter)
 - Configure the training parameters in the spreadsheet via Goole Sheets
-- The training program starts with a rest cycle. So if we configure total cycles to 6, we'll have: rest, activity, rest, activity, rest, activity.
+- The training program starts with a rest cycle, followed by an activity cycle, then repeat
+- Example
+
+| totalCycles | activityTotalSeconds | restTotalSeconds | scaleLowerLimitGrams | scaleUpperLimitGrams |
+| ----------- | -------------------- | ---------------- | -------------------- | -------------------- |
+| 6           | 10                   | 20               | 55000                | 90000                |
+
+- For the example above, we'll have 6 cycles as follows:
+    - cycle 1: rest for 20 seconds
+    - cycle 2: activity for 10 seconds
+    - cycle 3: rest for 20 seconds
+    - cycle 4: activity for 10 seconds
+    - cycle 5: rest for 20 seconds
+    - cycle 6: activity for 10 seconds
+
 - Start the training by pressing SW1 (note SW4 should be toggled ON)
 - The score is updated only in the activity cycles (cycle 2, 4 and 6 in the example above)
 - The score is calculated as follows:
-    - each second there are 2 weight measurements
+    - each second there are 2 scale measurements
     - let's say we have 3 activity cycles of 10 seconds
     - which means 3x 10x 2 measurements
     - we just sum up the 60 measurements (in kg)
+- For the exapmle above, the score can be the following:
+    - score: 2017 (which is a sum of all the scale measurements)
+    - history: 73,70,70,68,71,70,70,70,69,70,62,65,67,68,66,66,66,67,64,64,68,66,67,67,67,65,66,67,65,63
 - In the future, the scoring method may be different, as at the moment, we don't penalize out-of-bounds measurements, and we don't reward in-bounds measurements
 
 

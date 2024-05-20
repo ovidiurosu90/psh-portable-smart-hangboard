@@ -51,6 +51,17 @@ Else: don't allow NVS to be updated
 ### SW6
 Not used at the moment
 
+- Configure the training parameters in the spreadsheet via Goole Sheets
+- The training program starts with a rest cycle. So if we configure total cycles to 6, we'll have: rest, activity, rest, activity, rest, activity.
+- Start the training by pressing SW1 (note SW4 should be toggled ON)
+- The score is updated only in the activity cycles (cycle 2, 4 and 6 in the example above)
+- The score is calculated as follows:
+    - each second there are 2 weight measurements
+    - let's say we have 3 activity cycles of 10 seconds
+    - which means 3x 10x 2 measurements
+    - we just sum up the 60 measurements (in kg)
+- In the future, the scoring method may be different, as at the moment, we don't penalize out-of-bounds measurements, and we don't reward in-bounds measurements
+
 
 ## Wiring
 

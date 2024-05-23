@@ -156,9 +156,7 @@ Check [wiki from JLCPCB](https://jlcpcb.com/help/article/362-how-to-generate-ger
 
 # Task List
 ## MainControllerNodeMCU-32S v0.1-20240428
-- [ ] Connect the SD Card reader on the TFT SPI display to the ESP32-S microcontroller via an JST-XH 4-pin connector
-- [ ] Add labels to J_DP_1
-- [ ] Change the footprint of J_DP_1 to a JST-XH 8-pin connector
+- NOTE At the moment the custom PCB for the MainControllerNodeMCU-32S module needs a small improvement. Currently it’s missing a 4-pin connection for interfacing with the SD card on the TFT display. You can either modify the project and add the connector on the PCB (before placing the order), or make the 4 connections manually (solder the 4 wires directly on the PCB, picture found below). Follow the issue on GitHub for updates: [\[PCB\] Update Custom PCB for MainControllerNodeMCU-32S #8](https://github.com/ovidiurosu90/psh-portable-smart-hangboard/issues/8)
 
 ## ScaleModule v0.1-20240428
 - All done

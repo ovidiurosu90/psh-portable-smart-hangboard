@@ -12,6 +12,15 @@ Provide a portable smart hangboard to use for finger strength training
 - the hangboard measures the pressure applied to the hanghold by using a couple of load cells
 - the training plans are set in Google Sheets
 
+
+## Important Links
+
+| Name | README |
+| --------------------- | ------------- |
+| BOM Bill Of Materials | [BOM.md](BOM.md) |
+| How To Build | [HOWTOBUILD.md](HOWTOBUILD.md) |
+
+
 ## Images
 
 ![CAD vs Real World](./Images/PSH_Portable_Smart_Hangboard_May_2024_v3_2024-05-13_CAD_vs_real_world.PNG "CAD vs Real World")
@@ -112,9 +121,7 @@ Not used at the moment
 | G19                                                                                                        | MISO                                                                                                                                                                                                                         |
 | G18                                                                                                        | SCK / SCLK (shared with display                                                                                                                                                                                              |
 
-NOTE At the moment, these connections need to be done manually, as in: 4 wires should be soldered directly on the PCB. This is dirty, error prone, and hopefully temporary.
-With the new custom PCB version for MainControllerNodeMCU-32S, we'll have a proper JST-XH 4-pin connector that will be used for this purpose.
-Check [KiCad/README.md](KiCad).
+NOTE At the moment the custom PCB for the MainControllerNodeMCU-32S module needs a small improvement. Currently it’s missing a 4-pin connection for interfacing with the SD card on the TFT display. You can either modify the project and add the connector on the PCB (before placing the order), or make the 4 connections manually (solder the 4 wires directly on the PCB, picture found below). Follow the issue on GitHub for updates: [\[PCB\] Update Custom PCB for MainControllerNodeMCU-32S #8](https://github.com/ovidiurosu90/psh-portable-smart-hangboard/issues/8).
 
 
 | [NodeMcu ESP-32S Lua ESP-WROOM-32](https://opencircuit.shop/product/nodemcu-esp-32s-lua-esp-wroom-32-wifi) | [SparkFun MAX98357A I2S Audio Breakout](https://opencircuit.shop/product/sparkfun-i2s-audio-breakout-max98357a) => [guide](https://learn.sparkfun.com/tutorials/i2s-audio-breakout-hookup-guide/all) |
@@ -144,10 +151,4 @@ Check [KiCad/README.md](KiCad).
 | G32 (input-output pin)                                                                                     | Available |
 | G34 (only output pin)                                                                                      | Available |
 
-
-## Others
-
-| Name | README |
-| --------------------- | ------ |
-| BOM Bill Of Materials | [BOM.md](BOM.md) |
 

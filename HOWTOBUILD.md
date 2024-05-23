@@ -33,9 +33,9 @@ Check the Bill Of Materials ([BOM.md](BOM.md)), and order the components listed 
 NOTE [Verify the wires](https://circuitjournal.com/four-wire-load-cell-with-HX711) of the load cells with a multimeter, and measure the resistance between all possible pairs. Identify the 2 pairs with the highest resistance, in my case that's 1 k ohm (red-black & white-green), while all the other combinations have a resistance of 750 ohm. This will help you identify the correct configuration in order to connect them to the [SparkFun HX711 Load Cell Amplifier](https://eu.robotshop.com/products/hx711-load-cell-amplifier?variant=42600661942440).
 
 
-1. Build the wires for the connections between different components (we use 4-pin JST-XH headers)
-    1. 2x 4-wire 38cm for ScaleModule
-    2. 3x 4-wire 22cm for SmartBox
+2. Build the wires for the connections between different components (we use 4-pin JST-XH headers)
+    - 2x 4-wire 38cm for ScaleModule
+    - 3x 4-wire 22cm for SmartBox
 
 ![Crimping connection wires](./Images/crimping_connection_wires1.png "Crimping connection wires")
 
@@ -54,9 +54,9 @@ NOTE Check the order of the wires for both ends of the wires. They should match 
 ![SparkFun HX711 Load Cell Amplifier with soldered pins](./Images/SparkFun_HX711_Load_Cell_Amplifier_with_soldered_pins.png "SparkFun HX711 Load Cell Amplifier with soldered pins")
 
 
-1. Solder a 7-pin 2.54mm pitch male header and a 2-pin screw terminal with 3.5mm pitch to the [SparkFun MAX98357A I2S Audio Breakout](https://opencircuit.shop/product/sparkfun-i2s-audio-breakout-max98357a).
+2. Solder a 7-pin 2.54mm pitch male header and a 2-pin screw terminal with 3.5mm pitch to the [SparkFun MAX98357A I2S Audio Breakout](https://opencircuit.shop/product/sparkfun-i2s-audio-breakout-max98357a).
 
-1. Solder a 4-pin 2.54mm pitch male header to the [AZDelivery ST7735 SPI TFT Display 1.8 inch 128 x 160 pixels](https://www.amazon.nl/dp/B078J5TS2G/) for the SD card interface. Mine came with the pins of the TFT display interface already soldered.
+3. Solder a 4-pin 2.54mm pitch male header to the [AZDelivery ST7735 SPI TFT Display 1.8 inch 128 x 160 pixels](https://www.amazon.nl/dp/B078J5TS2G/) for the SD card interface. Mine came with the pins of the TFT display interface already soldered.
 
 
 
@@ -69,7 +69,7 @@ NOTE Check the order of the wires for both ends of the wires. They should match 
 ![Custom PCBs with soldered connectors and components back](./Images/custom_PCBs_soldered_connectors_and_components_back.png "Custom PCBs with soldered connectors and components back")
 
 
-1. TEMP (hopefully) solder the 4-pin JST-XH to the MainControllerNodeMCU-32S
+2. TEMP (hopefully) solder the 4-pin JST-XH to the MainControllerNodeMCU-32S
 
 NOTE At the moment the custom PCB for the MainControllerNodeMCU-32S module needs a small improvement. Currently it's missing a 4-pin connection for interfacing with the SD card on the TFT display. You can either modify the project and add the connector on the PCB (before placing the order), or make the 4 connections manually (solder the 4 wires directly on the PCB, picture found below). Follow the issue on GitHub for updates: [\[PCB\] Update Custom PCB for MainControllerNodeMCU-32S #8](https://github.com/ovidiurosu90/psh-portable-smart-hangboard/issues/8)
 
@@ -80,7 +80,7 @@ NOTE At the moment the custom PCB for the MainControllerNodeMCU-32S module needs
 
 1. Setup your project in Fusion 360 by following the instructions from [CAD/README.md](CAD/README.md)
 
-1. Export the following bodies one by one by right clicking on them > 'Save as Mesh' > OK > Check 'Save to my computer' > 'Save':
+2. Export the following bodies one by one by right clicking on them > 'Save as Mesh' > OK > Check 'Save to my computer' > 'Save':
 - from component 'PSH Scale Assembly May 2024 v4':
   - HangingHoldFlat\_200x50
   - HangingHoldChassis
@@ -95,7 +95,7 @@ NOTE At the moment the custom PCB for the MainControllerNodeMCU-32S module needs
 ![PSH Portable Smart Hangboard - May 2024 - Fusion 360 (2)](./Images/PSH_Portable_Smart_Hangboard_May_2024_Fusion_360_2.PNG "PSH Portable Smart Hangboard - May 2024 - Fusion 360 (2)")
 
 
-1. Slice the meshes and prepare the .gcode files that will be used by your 3D printer
+3. Slice the meshes and prepare the .gcode files that will be used by your 3D printer
 
 NOTE I used [PrusaSlicer 2.7](https://www.prusa3d.com/en/page/prusaslicer_424/), though you can use other tools (e.g. [Ultimaker Cura](https://ultimaker.com/software/ultimaker-cura/)).
 
@@ -117,7 +117,7 @@ For each of the exported meshes (from above), follow the steps:
 
 ![Slicing component in Prusa Slicer](./Images/slicing_component_in_Prusa_Slicer.PNG "Slicing component in Prusa Slicer")
 
-1. 3D-print the components by using the .gcode files generated above
+4. 3D-print the components by using the .gcode files generated above
 
 NOTE This step depends on your 3d printer and your setup. I prefer to use [OctoPrint](https://octoprint.org/) for managing the printing jobs, though you can directly send the .gcode files to your 3d printer via USB or SD Card.
 
@@ -128,11 +128,11 @@ NOTE This step depends on your 3d printer and your setup. I prefer to use [OctoP
 
 ![Printed components with nuts and metal flat plate](./Images/printed_components_with_nuts_and_metal_flat_plate.png "Printed components with nuts and metal flat plate")
 
-1. Assemble the SmartBox
+2. Assemble the SmartBox
 
-1. Assemble the Scale
+3. Assemble the Scale
 
-1. Connect the two with the ScaleSmartBoxMount. When done, the full assembly should look like this:
+4. Connect the two with the ScaleSmartBoxMount. When done, the full assembly should look like this:
 
 ![PSH Portable Smart Hangboard - Complete Assembly (1)](./Images/PSH_Portable_Smart_Hangboard_complete_assembly1.png "PSH Portable Smart Hangboard - Complete Assembly (1)")
 

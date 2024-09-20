@@ -48,6 +48,7 @@ NOTE The prices are excluding transportation.
 - [ ] 1x [Alberts metal flat plate 180x40x3mm](https://www.praxis.nl/gereedschap-installatiemateriaal/ijzerwaren/ankerwerk/alberts-verbindingsplaat-ruwstaal-verzinkt-180x40x3mm/6282142) (1.35€)
 - [ ] 1x 2m 9mm climbing rope
 - [ ] 2x climbing carabiner for easier mounting (optional)
+- [ ] 1x Wood non-slippery holds => [Portable hangboard "Stella"](https://www.etsy.com/listing/1724835154/portable-hangboard-stella-for-warming-up)
 
 ## For Programming (optional, you can use your laptop directly)
 - [ ] 1x [Raspberry Pi 4 Model B / 8GB](https://www.sossolutions.nl/raspberry-pi-4-model-b-8gb) (90€)

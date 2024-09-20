@@ -25,6 +25,8 @@ Provide a portable smart hangboard to use for finger strength training
 
 ![CAD vs Real World](./Images/PSH_Portable_Smart_Hangboard_May_2024_v3_2024-05-13_CAD_vs_real_world.PNG "CAD vs Real World")
 
+![Wood non-slippery holds - CAD vs Real World](./Images/PSH_Portable_Smart_Hangboard_with_Rope_-_CAD_vs_Real_World.png "Wood non-slippery holds - CAD vs Real World")
+
 ## Functionality of switches
 - There are 3 big black momentary switches (labeled SW1, SW2 and SW3)
 - There are 3 small toggle switches (labeled SW4, SW5 and SW6)
